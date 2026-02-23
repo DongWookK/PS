@@ -45,6 +45,33 @@ auto merge_sort(std::array<int32_t, 1000>& arr, int32_t left, int32_t right) -> 
 	merge(arr, left, mid, right);
 }
 
+auto quick_sort(int32_t start_idx, int32_t end_idx, arr_t& arr) -> void
+{
+	if (end_idx <= start_idx) { return; }
+
+	int32_t key = arr[start_idx];
+	int32_t i = start_idx + 1;	// index for find integer smaller than the key value
+	int32_t j = end_idx;		// index for find integer bigger the key value 
+
+	while (true)
+	{
+		while (i <= end_idx && arr[i] <= key) ++i;
+		while (j > start_idx && arr[j] >= key) --j;
+
+		if (i > j) break;
+
+		std::swap(arr[i], arr[j]);
+		++i;
+		--j;
+	}
+
+	std::swap(arr[start_idx], arr[j]);
+
+	quick_sort(start_idx, j - 1, arr);
+	quick_sort(j + 1, end_idx, arr);
+}
+
+
 int main()
 {
 	std::array<int32_t, 1000> arr{};
