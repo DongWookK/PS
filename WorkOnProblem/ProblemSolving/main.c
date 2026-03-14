@@ -1,38 +1,45 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <stdint.h>
+#include <stdlib.h>
 
-void insertion_sort(uint32_t size, int* arr)
-{
-	for (uint32_t i = 1; i < size; i++)
-	{
-		int key = arr[i];
-		int j = i - 1; // j is max number of sorted list
-
-		// find place to insert and shift backward big nubmer elements
-		while (0 <= j
-				&& key < arr[j])
-		{
-			arr[j + 1] = arr[j];
-			j--;
-		}
-
-		arr[j + 1] = key;
-	}
-	return;
-}
+struct node {
+	char value_;
+	char left_value_;
+	char right_value_;
+	struct node* left_child_;
+	struct node* right_child_;
+};
 
 int main() {
-	uint32_t n = 0;
-	uint32_t arr[1000] = { 0 };
+	int32_t n = 0;
+	struct node arr[26];
 
 	scanf("%d", &n);
 	for (int32_t i = 0; i < n; ++i)
 	{
-		scanf("%d", &arr[i]);
+		char key, left, right;
+		scanf(" %c %c %c", &arr[i].value_, &arr[i].left_value_, &arr[i].right_value_);
 	}
 
-	insertion_sort(n, arr);
+	for (int32_t i = 0; i < n; ++i)
+	{
+		int32_t ascii = 0;
+		int32_t value_index = 0;
+		if (arr[i].left_value_ != '.')
+		{
+			ascii = arr[i].left_value_;
+			value_index = ascii - 65;
+			arr[i].left_child_ = &arr[value_index];
+		}
+
+		if (arr[i].right_value_ != '.')
+		{
+			ascii = arr[i].right_value_;
+			value_index = ascii - 65;
+			arr[i].right_child_ = &arr[value_index];
+		}
+	}
 
 	for (int32_t i = 0; i < n; ++i)
 	{
