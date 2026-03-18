@@ -1,5 +1,5 @@
 #include "pre.h"
-using arr_t = std::array<int32_t, 1000>;
+using arr_t = std::array<int32_t, 100000>;
 
 int main() {
     arr_t arr{};
